@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProcessPensionServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">processPensionMicroservice</a> &gt; <a href="index.source.html" class="el_package">com.processPensionMicroservice.service</a> &gt; <span class="el_source">ProcessPensionServiceImpl.java</span></div><h1>ProcessPensionServiceImpl.java</h1><pre class="source lang-java linenums">package com.processPensionMicroservice.service;
+
+import java.io.IOException;
+
+import javax.validation.Valid;
+
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.processPensionMicroservice.client.AuthorizationClient;
+import com.processPensionMicroservice.client.PensionDisbursementClient;
+import com.processPensionMicroservice.client.PensionerDetailClient;
+import com.processPensionMicroservice.controller.processPensionController;
+import com.processPensionMicroservice.exception.AuthorizationException;
+import com.processPensionMicroservice.exception.PensionerDetailsException;
+import com.processPensionMicroservice.exception.PensionerNotFoundException;
+import com.processPensionMicroservice.model.PensionDetail;
+import com.processPensionMicroservice.model.PensionerDetail;
+import com.processPensionMicroservice.model.PensionerInput;
+import com.processPensionMicroservice.model.ProcessInput;
+import com.processPensionMicroservice.model.ProcessPensionInput;
+import com.processPensionMicroservice.model.ProcessPensionResponse;
+
+import lombok.extern.log4j.Log4j2;
+
+@Service
+@Log4j2
+<span class="fc" id="L31">public class ProcessPensionServiceImpl implements ProcessPensionService {</span>
+<span class="fc" id="L32">	private static final Logger log = LoggerFactory.getLogger(ProcessPensionServiceImpl.class);</span>
+
+	@Autowired
+	private PensionerDetailClient pensionerDetailClient;
+	@Autowired
+	private PensionDisbursementClient pensionDisbursementClient;
+	@Autowired
+	private AuthorizationClient authorizationClient;
+
+	@Autowired
+	private ProcessPensionService processPensionService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+<span class="fc" id="L47">	private static final Logger Log = LoggerFactory.getLogger(processPensionController.class);</span>
+	
+	public double getresult(PensionerDetail pensionerDetail) {
+<span class="fc" id="L50">		double pensionAmount = 0.0;</span>
+
+<span class="fc bfc" id="L52" title="All 2 branches covered.">		if (pensionerDetail.getPensionType().equalsIgnoreCase(&quot;self&quot;))</span>
+<span class="fc" id="L53">			pensionAmount = (pensionerDetail.getSalary() * Constants.SELF_SERVICE_CHARGE</span>
+<span class="fc" id="L54">					+ pensionerDetail.getAllowance());</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">		else if (pensionerDetail.getPensionType().equalsIgnoreCase(&quot;family&quot;))</span>
+<span class="fc" id="L56">			pensionAmount = (pensionerDetail.getSalary() * Constants.FAMILY_SERVICE_CHARGE</span>
+<span class="fc" id="L57">					+ pensionerDetail.getAllowance());</span>
+<span class="fc" id="L58">		log.info(&quot;&quot; + pensionAmount);</span>
+<span class="fc" id="L59">		return pensionAmount;</span>
+
+	}
+
+	public double getServiceCharge(String bankType) {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">		if (bankType.equalsIgnoreCase(&quot;public&quot;)) {</span>
+<span class="fc" id="L65">			return 500.0;</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">		} else if (bankType.equalsIgnoreCase(&quot;private&quot;)) {</span>
+<span class="fc" id="L67">			return 550.0;</span>
+		} else {
+<span class="nc" id="L69">			return -1;</span>
+		}
+	}
+
+	@Override
+	public ProcessPensionResponse getcode(String header, @Valid ProcessInput processInput)
+			throws AuthorizationException, PensionerNotFoundException, IOException {
+<span class="nc bnc" id="L76" title="All 2 branches missed.">		if (authorizationClient.authorizeRequest(header)) {</span>
+<span class="nc" id="L77">			PensionerDetail pensionerDetail = pensionerDetailClient.getPensionerDetailByAadhaar(header,</span>
+<span class="nc" id="L78">					processInput.getAadharNumber());</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">			if (pensionerDetail.getName() == null) {</span>
+<span class="nc" id="L80">				throw new PensionerNotFoundException(&quot;Pensioner with given aadhaar number not found&quot;);</span>
+			}
+<span class="nc" id="L82">			double serviceCharge = processPensionService.getServiceCharge(pensionerDetail.getBank().getBankType());</span>
+<span class="nc" id="L83">			ProcessPensionInput processPensionInput = new ProcessPensionInput(processInput.getAadharNumber(),</span>
+<span class="nc" id="L84">					processInput.getPensionAmount(), serviceCharge);</span>
+
+<span class="nc" id="L86">			ProcessPensionResponse responseCode = null;</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">			for (int i = 1; i &lt;= 3; i++) {</span>
+<span class="nc" id="L88">				responseCode = pensionDisbursementClient.getcode(header, processPensionInput);</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">				if (responseCode.getPensionStatusCode() == 10) {</span>
+<span class="nc" id="L90">					Log.info(&quot;End ProcessPension&quot;);</span>
+<span class="nc" id="L91">					return responseCode;</span>
+				}
+<span class="nc" id="L93">				Log.info(&quot;retrying&quot;);</span>
+			}
+
+<span class="nc" id="L96">			Log.info(&quot;End ProcessPension&quot;);</span>
+<span class="nc" id="L97">			return responseCode;</span>
+
+		} else {
+<span class="nc" id="L100">			throw new AuthorizationException(&quot;User not authorized&quot;);</span>
+		}
+
+	}
+
+	@Override
+	public PensionDetail getPensionDetails(String header, @Valid PensionerInput pensionerInput)
+			throws PensionerNotFoundException, PensionerDetailsException, AuthorizationException {
+<span class="nc bnc" id="L108" title="All 2 branches missed.">		if (authorizationClient.authorizeRequest(header)) {</span>
+<span class="nc" id="L109">			PensionerDetail pensionerDetail = pensionerDetailClient.getPensionerDetailByAadhaar(header,</span>
+<span class="nc" id="L110">					pensionerInput.getAadharNumber());</span>
+<span class="nc" id="L111">			Log.info(pensionerDetail.getName());</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">			if (pensionerDetail.getName() == null) {</span>
+<span class="nc" id="L113">				throw new PensionerNotFoundException(&quot;Pensioner with given aadhar not found&quot;);</span>
+			}
+<span class="nc" id="L115">			PensionerDetail receivedPensionerDetail = modelMapper.map(pensionerInput, PensionerDetail.class);</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">			if (pensionerDetail.compareTo(receivedPensionerDetail) &lt; 0) {</span>
+<span class="nc" id="L117">				throw new PensionerDetailsException(&quot;Incorrect Pensioner Details.&quot;);</span>
+			}
+
+<span class="nc" id="L120">			double pensionAmount = processPensionService.getresult(pensionerDetail);</span>
+<span class="nc" id="L121">			Log.info(&quot;&quot; + pensionAmount);</span>
+<span class="nc" id="L122">			PensionDetail pensionDetail = modelMapper.map(pensionerDetail, PensionDetail.class);</span>
+<span class="nc" id="L123">			pensionDetail.setPensionAmount(pensionAmount);</span>
+<span class="nc" id="L124">			Log.info(&quot;&quot; + pensionDetail.getPensionAmount());</span>
+<span class="nc" id="L125">			return pensionDetail;</span>
+
+		} else {
+<span class="nc" id="L128">			throw new AuthorizationException(&quot;User not authorized&quot;);</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

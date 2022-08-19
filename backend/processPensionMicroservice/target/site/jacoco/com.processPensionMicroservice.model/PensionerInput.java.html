@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PensionerInput.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">processPensionMicroservice</a> &gt; <a href="index.source.html" class="el_package">com.processPensionMicroservice.model</a> &gt; <span class="el_source">PensionerInput.java</span></div><h1>PensionerInput.java</h1><pre class="source lang-java linenums">package com.processPensionMicroservice.model;
+
+import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+
+public class PensionerInput {
+	
+	
+	@NotNull(message=&quot;{name.notnull}&quot;)
+	private String name;
+	@NotNull(message=&quot;{dob.notnull}&quot;)
+	@PastOrPresent
+	private  @DateTimeFormat(pattern=&quot;yyyy-MM-dd&quot;) Date dateOfBirth;
+	@NotNull(message=&quot;{pan.notnull}&quot;)
+	@Pattern(regexp = &quot;[A-Z]{5}[0-9]{4}[A-Z]{1}&quot;, message = &quot;{pan.valid}&quot;)
+	private String pan;
+	@Positive(message=&quot;{aadhar.positive}&quot;)
+	private long aadharNumber;
+	@NotNull(message=&quot;{pentiontype.notnull}&quot;)
+	private String pensionType;
+	public String getName() {
+<span class="nc" id="L40">		return name;</span>
+	}
+	public void setName(String name) {
+<span class="fc" id="L43">		this.name = name;</span>
+<span class="fc" id="L44">	}</span>
+	public Date getDateOfBirth() {
+<span class="nc" id="L46">		return dateOfBirth;</span>
+	}
+	public void setDateOfBirth(Date dateOfBirth) {
+<span class="fc" id="L49">		this.dateOfBirth = dateOfBirth;</span>
+<span class="fc" id="L50">	}</span>
+	public String getPan() {
+<span class="nc" id="L52">		return pan;</span>
+	}
+	public void setPan(String pan) {
+<span class="fc" id="L55">		this.pan = pan;</span>
+<span class="fc" id="L56">	}</span>
+	public long getAadharNumber() {
+<span class="nc" id="L58">		return aadharNumber;</span>
+	}
+	public void setAadharNumber(long aadharNumber) {
+<span class="fc" id="L61">		this.aadharNumber = aadharNumber;</span>
+<span class="fc" id="L62">	}</span>
+	public String getPensionType() {
+<span class="nc" id="L64">		return pensionType;</span>
+	}
+	public void setPensionType(String pensionType) {
+<span class="fc" id="L67">		this.pensionType = pensionType;</span>
+<span class="fc" id="L68">	}</span>
+	public PensionerInput(@NotNull(message = &quot;{name.notnull}&quot;) String name,
+			@NotNull(message = &quot;{dob.notnull}&quot;) @PastOrPresent Date dateOfBirth,
+			@NotNull(message = &quot;{pan.notnull}&quot;) @Pattern(regexp = &quot;[A-Z]{5}[0-9]{4}[A-Z]{1}&quot;, message = &quot;{pan.valid}&quot;) String pan,
+			@Positive(message = &quot;{aadhar.positive}&quot;) long aadharNumber,
+			@NotNull(message = &quot;{pentiontype.notnull}&quot;) String pensionType) {
+<span class="nc" id="L74">		super();</span>
+<span class="nc" id="L75">		this.name = name;</span>
+<span class="nc" id="L76">		this.dateOfBirth = dateOfBirth;</span>
+<span class="nc" id="L77">		this.pan = pan;</span>
+<span class="nc" id="L78">		this.aadharNumber = aadharNumber;</span>
+<span class="nc" id="L79">		this.pensionType = pensionType;</span>
+<span class="nc" id="L80">	}</span>
+	public PensionerInput() {
+<span class="fc" id="L82">		super();</span>
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L84">	}</span>
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
