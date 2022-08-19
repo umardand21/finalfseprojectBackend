@@ -1,22 +1,23 @@
 package com.pensionerDisbursementMicroservice.Model;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+/*
+ * @NoArgsConstructor
+ * 
+ * @AllArgsConstructor
+ */
 @EqualsAndHashCode
 public class PensionerDetail {
 	
 
 	public PensionerDetail() {
-		super();
+		//super();
 		// TODO Auto-generated constructor stub
 	}
 	public PensionerDetail(String name, String dateOfBirth, String pan, double salary, double allowance,

@@ -8,18 +8,48 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-<span class="fc" id="L11">@NoArgsConstructor</span>
-<span class="fc" id="L12">@AllArgsConstructor</span>
+/*@NoArgsConstructor
+@AllArgsConstructor*/
 @Getter
-<span class="fc" id="L14">@Setter</span>
-<span class="pc bpc" id="L15" title="1 of 24 branches missed.">@EqualsAndHashCode</span>
+@Setter
+@EqualsAndHashCode
 public class ProcessPensionInput {
-
+    
+<span class="fc" id="L18">	public ProcessPensionInput() {</span>
+		//super();
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L21">	}</span>
+	public ProcessPensionInput(@Positive(message = &quot;{aadhaar.positive}&quot;) Long aadharNumber,
+			@Positive(message = &quot;{pensionAmount.positive}&quot;) Double pensionAmount,
+			@Positive(message = &quot;{serviceCharge.positive}&quot;) double serviceCharge) {
+<span class="fc" id="L25">		super();</span>
+<span class="fc" id="L26">		this.aadharNumber = aadharNumber;</span>
+<span class="fc" id="L27">		this.pensionAmount = pensionAmount;</span>
+<span class="fc" id="L28">		this.serviceCharge = serviceCharge;</span>
+<span class="fc" id="L29">	}</span>
+	public Long getAadharNumber() {
+<span class="nc" id="L31">		return aadharNumber;</span>
+	}
+	public void setAadharNumber(Long aadharNumber) {
+<span class="fc" id="L34">		this.aadharNumber = aadharNumber;</span>
+<span class="fc" id="L35">	}</span>
+	public Double getPensionAmount() {
+<span class="fc" id="L37">		return pensionAmount;</span>
+	}
+	public void setPensionAmount(Double pensionAmount) {
+<span class="fc" id="L40">		this.pensionAmount = pensionAmount;</span>
+<span class="fc" id="L41">	}</span>
+	public double getServiceCharge() {
+<span class="fc" id="L43">		return serviceCharge;</span>
+	}
+	public void setServiceCharge(double serviceCharge) {
+<span class="fc" id="L46">		this.serviceCharge = serviceCharge;</span>
+<span class="fc" id="L47">	}</span>
 	@Positive(message= &quot;{aadhaar.positive}&quot;)
-<span class="fc" id="L19">	private Long aadharNumber;</span>
+	private Long aadharNumber;
 	@Positive(message = &quot;{pensionAmount.positive}&quot;)
-<span class="fc" id="L21">	private Double pensionAmount;</span>
+	private Double pensionAmount;
 	@Positive(message = &quot;{serviceCharge.positive}&quot;)
-<span class="fc" id="L23">	private double serviceCharge;</span>
+	private double serviceCharge;
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

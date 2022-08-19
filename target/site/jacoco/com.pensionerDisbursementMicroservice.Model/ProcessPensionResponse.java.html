@@ -7,14 +7,32 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-<span class="fc" id="L10">@NoArgsConstructor</span>
-<span class="fc" id="L11">@AllArgsConstructor</span>
+/*@NoArgsConstructor
+@AllArgsConstructor*/
 @Getter
-<span class="fc" id="L13">@Setter</span>
-<span class="pc bpc" id="L14" title="1 of 8 branches missed.">@EqualsAndHashCode</span>
+@Setter
+@EqualsAndHashCode
 public class ProcessPensionResponse {
 
-<span class="fc" id="L17">	private int pensionStatusCode;</span>
+<span class="fc" id="L17">	public ProcessPensionResponse() {</span>
+		//super();
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L20">	}</span>
+
+	public ProcessPensionResponse(int pensionStatusCode) {
+<span class="fc" id="L23">		super();</span>
+<span class="fc" id="L24">		this.pensionStatusCode = pensionStatusCode;</span>
+<span class="fc" id="L25">	}</span>
+
+	public int getPensionStatusCode() {
+<span class="fc" id="L28">		return pensionStatusCode;</span>
+	}
+
+	public void setPensionStatusCode(int pensionStatusCode) {
+<span class="fc" id="L32">		this.pensionStatusCode = pensionStatusCode;</span>
+<span class="fc" id="L33">	}</span>
+
+	private int pensionStatusCode;
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

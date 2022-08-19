@@ -3,35 +3,32 @@
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pensionerDisbursementMicroservice.Exception.PensionerDetailNotFoundException;
-import com.pensionerDisbursementMicroservice.Model.PensionerDetail;
 import com.pensionerDisbursementMicroservice.Model.ProcessPensionInput;
 import com.pensionerDisbursementMicroservice.Model.ProcessPensionResponse;
-import com.pensionerDisbursementMicroservice.client.AuthorizationServiceClient;
-import com.pensionerDisbursementMicroservice.client.PensionDetailsClient;
-import com.pensionerDisbursementMicroservice.service.PensionDisbursmentService;
+import com.pensionerDisbursementMicroservice.service.PensionDisbursmentServiceImpl;
+
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-<span class="fc" id="L23">@Slf4j</span>
+@Slf4j
 @RequestMapping(&quot;/disburse&quot;)
-<span class="fc" id="L25">public class PensionDisbursementController {</span>
+@CrossOrigin
+<span class="fc" id="L26">public class PensionDisbursementController {</span>
+	
+<span class="fc" id="L28">	private static final Logger log = LoggerFactory.getLogger(PensionDisbursementController.class);</span>
 
 	@Autowired
-	private PensionDetailsClient pensionDetailsClient;
-
-	@Autowired
-	private PensionDisbursmentService pensionDisbursmentService;
-
-	@Autowired
-	private AuthorizationServiceClient authorizationServiceClient;
+	private PensionDisbursmentServiceImpl pensionDisbursmentServiceImpl;
 
 	/*
 	 * POST: localhost:8083/disbursePension
@@ -52,27 +49,9 @@ import lombok.extern.slf4j.Slf4j;
 	@PostMapping(&quot;/disbursePension&quot;)
 	public ProcessPensionResponse getcode(@RequestHeader(&quot;Authorization&quot;) String header,
 			@Valid @RequestBody ProcessPensionInput processPensionInput) throws Exception {
-
-<span class="fc" id="L56">		log.info(&quot;Start getcode&quot;);</span>
-<span class="fc bfc" id="L57" title="All 2 branches covered.">		if (authorizationServiceClient.authorizeRequest(header)) {</span>
-			try {
-<span class="fc" id="L59">				PensionerDetail pensionerDetail = pensionDetailsClient.getPensionerDetailByAadhaar(header,</span>
-<span class="fc" id="L60">						processPensionInput.getAadharNumber());</span>
-<span class="fc" id="L61">				System.out.println(pensionerDetail.getAllowance()+&quot; &quot;+pensionerDetail.getName()+&quot; &quot;+pensionerDetail.getBank()+&quot; &quot;+pensionerDetail.getDateOfBirth()+&quot; &quot;+pensionerDetail.getPan()+&quot; &quot;+</span>
-<span class="fc" id="L62">						pensionerDetail.getPensionType()+&quot; &quot;+pensionerDetail.getSalary());</span>
-<span class="fc" id="L63">				ProcessPensionResponse processPensionResponse=pensionDisbursmentService.code(pensionerDetail, processPensionInput);</span>
-<span class="fc" id="L64">				log.debug(&quot;The code is &quot; + processPensionResponse);</span>
-
-<span class="fc" id="L66">				log.info(&quot;End getcode&quot;);</span>
-
-<span class="fc" id="L68">				return processPensionResponse;</span>
-<span class="fc" id="L69">			} catch (PensionerDetailNotFoundException e) {</span>
-<span class="fc" id="L70">				throw new PensionerDetailNotFoundException(&quot;pensioneer with given aadhaar number &quot;</span>
-<span class="fc" id="L71">						+ processPensionInput.getAadharNumber() + &quot; is not found &quot;);</span>
-			}
-		} else {
-<span class="fc" id="L74">			throw new Exception(&quot;User Not Authorized&quot;);</span>
-		}
+		
+<span class="fc" id="L53">		log.info(&quot;Start getcode&quot;);</span>
+<span class="fc" id="L54">		return pensionDisbursmentServiceImpl.getcode(header,processPensionInput);</span>
 
 	}
 }

@@ -6,14 +6,46 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-<span class="fc" id="L9">@Setter</span>
-<span class="fc" id="L10">@NoArgsConstructor</span>
-<span class="pc bpc" id="L11" title="1 of 24 branches missed.">@EqualsAndHashCode</span>
-<span class="fc" id="L12">@AllArgsConstructor</span>
+@Setter
+@EqualsAndHashCode
+/*
+ * @NoArgsConstructor
+ * 
+ * @AllArgsConstructor
+ */
 public class Bank {
-<span class="fc" id="L14">	private String name;</span>
-<span class="fc" id="L15">	private int acctno;</span>
-<span class="fc" id="L16">	private String bankType;</span>
+	
+<span class="fc" id="L18">	public Bank() {</span>
+		//super();
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L21">	}</span>
+	public Bank(String name, int acctno, String bankType) {
+<span class="fc" id="L23">		super();</span>
+<span class="fc" id="L24">		this.name = name;</span>
+<span class="fc" id="L25">		this.acctno = acctno;</span>
+<span class="fc" id="L26">		this.bankType = bankType;</span>
+<span class="fc" id="L27">	}</span>
+	public String getName() {
+<span class="nc" id="L29">		return name;</span>
+	}
+	public void setName(String name) {
+<span class="fc" id="L32">		this.name = name;</span>
+<span class="fc" id="L33">	}</span>
+	public int getAcctno() {
+<span class="nc" id="L35">		return acctno;</span>
+	}
+	public void setAcctno(int acctno) {
+<span class="fc" id="L38">		this.acctno = acctno;</span>
+<span class="fc" id="L39">	}</span>
+	public String getBankType() {
+<span class="fc" id="L41">		return bankType;</span>
+	}
+	public void setBankType(String bankType) {
+<span class="fc" id="L44">		this.bankType = bankType;</span>
+<span class="fc" id="L45">	}</span>
+	private String name;
+	private int acctno;
+	private String bankType;
 	
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
