@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.processPensionMicroservice.ProcessPensionMicroserviceApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.593 s - in com.processPensionMicroservice.ProcessPensionMicroserviceApplicationTests
