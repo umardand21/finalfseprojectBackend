@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Bank.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">processPensionMicroservice</a> &gt; <a href="index.source.html" class="el_package">com.processPensionMicroservice.model</a> &gt; <span class="el_source">Bank.java</span></div><h1>Bank.java</h1><pre class="source lang-java linenums">package com.processPensionMicroservice.model;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+/*@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode*/
+public class Bank {
+	private String bankName;
+	private long accountNumber;
+	private String bankType;
+	public String getBankName() {
+<span class="nc" id="L20">		return bankName;</span>
+	}
+	public void setBankName(String bankName) {
+<span class="fc" id="L23">		this.bankName = bankName;</span>
+<span class="fc" id="L24">	}</span>
+	public long getAccountNumber() {
+<span class="nc" id="L26">		return accountNumber;</span>
+	}
+	public void setAccountNumber(long accountNumber) {
+<span class="fc" id="L29">		this.accountNumber = accountNumber;</span>
+<span class="fc" id="L30">	}</span>
+	public String getBankType() {
+<span class="nc" id="L32">		return bankType;</span>
+	}
+	public void setBankType(String bankType) {
+<span class="fc" id="L35">		this.bankType = bankType;</span>
+<span class="fc" id="L36">	}</span>
+	public Bank(String bankName, long accountNumber, String bankType) {
+<span class="fc" id="L38">		super();</span>
+<span class="fc" id="L39">		this.bankName = bankName;</span>
+<span class="fc" id="L40">		this.accountNumber = accountNumber;</span>
+<span class="fc" id="L41">		this.bankType = bankType;</span>
+<span class="fc" id="L42">	}</span>
+<span class="fc" id="L43">	public Bank() {</span>
+//		super();
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L46">	}</span>
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PensionerDetail.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">processPensionMicroservice</a> &gt; <a href="index.source.html" class="el_package">com.processPensionMicroservice.model</a> &gt; <span class="el_source">PensionerDetail.java</span></div><h1>PensionerDetail.java</h1><pre class="source lang-java linenums">package com.processPensionMicroservice.model;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+public class PensionerDetail implements Comparable&lt;PensionerDetail&gt;{
+	private String name;
+	private Date dateOfBirth;
+	private String pan;
+	private double salary;
+	private double allowance;
+	private String pensionType;
+	private Bank bank;
+	
+	@Override
+	public int compareTo(PensionerDetail o) {
+<span class="pc bpc" id="L27" title="2 of 6 branches missed.">		if(this.name.equalsIgnoreCase(o.getName()) &amp;&amp; this.dateOfBirth.compareTo(o.getDateOfBirth())==0 &amp;&amp; this.pan.equals(o.getPan())</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">				&amp;&amp; this.pensionType.equalsIgnoreCase(o.getPensionType()))</span>
+<span class="fc" id="L29">			return 0;</span>
+		else
+<span class="fc" id="L31">			return -1;</span>
+		
+	}
+
+	public PensionerDetail(String name, Date dateOfBirth, String pan, double salary, double allowance,
+			String pensionType, Bank bank) {
+<span class="fc" id="L37">		super();</span>
+<span class="fc" id="L38">		this.name = name;</span>
+<span class="fc" id="L39">		this.dateOfBirth = dateOfBirth;</span>
+<span class="fc" id="L40">		this.pan = pan;</span>
+<span class="fc" id="L41">		this.salary = salary;</span>
+<span class="fc" id="L42">		this.allowance = allowance;</span>
+<span class="fc" id="L43">		this.pensionType = pensionType;</span>
+<span class="fc" id="L44">		this.bank = bank;</span>
+<span class="fc" id="L45">	}</span>
+
+	public String getName() {
+<span class="fc" id="L48">		return name;</span>
+	}
+
+	public void setName(String name) {
+<span class="fc" id="L52">		this.name = name;</span>
+<span class="fc" id="L53">	}</span>
+
+	public Date getDateOfBirth() {
+<span class="fc" id="L56">		return dateOfBirth;</span>
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+<span class="fc" id="L60">		this.dateOfBirth = dateOfBirth;</span>
+<span class="fc" id="L61">	}</span>
+
+	public String getPan() {
+<span class="fc" id="L64">		return pan;</span>
+	}
+
+	public void setPan(String pan) {
+<span class="fc" id="L68">		this.pan = pan;</span>
+<span class="fc" id="L69">	}</span>
+
+	public double getSalary() {
+<span class="fc" id="L72">		return salary;</span>
+	}
+
+	public void setSalary(double salary) {
+<span class="fc" id="L76">		this.salary = salary;</span>
+<span class="fc" id="L77">	}</span>
+
+	public double getAllowance() {
+<span class="fc" id="L80">		return allowance;</span>
+	}
+
+	public void setAllowance(double allowance) {
+<span class="fc" id="L84">		this.allowance = allowance;</span>
+<span class="fc" id="L85">	}</span>
+
+	public String getPensionType() {
+<span class="fc" id="L88">		return pensionType;</span>
+	}
+
+	public void setPensionType(String pensionType) {
+<span class="fc" id="L92">		this.pensionType = pensionType;</span>
+<span class="fc" id="L93">	}</span>
+
+	public Bank getBank() {
+<span class="nc" id="L96">		return bank;</span>
+	}
+
+	public void setBank(Bank bank) {
+<span class="fc" id="L100">		this.bank = bank;</span>
+<span class="fc" id="L101">	}</span>
+
+	public PensionerDetail() {
+<span class="fc" id="L104">		super();</span>
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L106">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

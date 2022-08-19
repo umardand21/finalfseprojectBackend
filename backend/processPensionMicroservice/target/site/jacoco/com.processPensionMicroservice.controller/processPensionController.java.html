@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>processPensionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">processPensionMicroservice</a> &gt; <a href="index.source.html" class="el_package">com.processPensionMicroservice.controller</a> &gt; <span class="el_source">processPensionController.java</span></div><h1>processPensionController.java</h1><pre class="source lang-java linenums">package com.processPensionMicroservice.controller;
+
+import java.io.IOException;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.processPensionMicroservice.exception.AuthorizationException;
+import com.processPensionMicroservice.exception.PensionerDetailsException;
+import com.processPensionMicroservice.exception.PensionerNotFoundException;
+import com.processPensionMicroservice.model.PensionDetail;
+import com.processPensionMicroservice.model.PensionerInput;
+import com.processPensionMicroservice.model.ProcessInput;
+import com.processPensionMicroservice.model.ProcessPensionResponse;
+import com.processPensionMicroservice.service.ProcessPensionServiceImpl;
+
+import feign.RetryableException;
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@Slf4j
+@RequestMapping(&quot;/process&quot;)
+@CrossOrigin
+<span class="nc" id="L34">public class processPensionController {</span>
+<span class="nc" id="L35">	private static final Logger Log = LoggerFactory.getLogger(processPensionController.class);</span>
+
+	@Autowired
+	ProcessPensionServiceImpl processPensionServiceImpl;
+
+	/*
+	 * POST: localhost:8084/process/pensionDetail
+	 * 
+	 * { &quot;name&quot; : &quot;Padmini&quot;, &quot;dateOfBirth&quot; : &quot;2000-08-30&quot;, &quot;pan&quot; : &quot;PCASD1234Q&quot;,
+	 * &quot;aadharNumber&quot; : 102233445566, &quot;pensionType&quot; : &quot;family&quot; }
+	 */
+
+	@PostMapping(&quot;/PensionDetail&quot;)
+	public PensionDetail getPensionDetails(@RequestHeader(&quot;Authorization&quot;) String header,
+			@Valid @RequestBody PensionerInput pensionerInput)
+			throws PensionerNotFoundException, PensionerDetailsException, AuthorizationException, RetryableException {
+		// modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+<span class="nc" id="L52">		Log.info(&quot;start getPensionDetails&quot;);</span>
+
+<span class="nc" id="L54">		Log.debug(&quot;&quot; + pensionerInput);</span>
+<span class="nc" id="L55">		return processPensionServiceImpl.getPensionDetails(header, pensionerInput);</span>
+	}
+
+	/*
+	 * POST: localhost:8084/process/ProcessPension
+	 * 
+	 * { &quot;aadharNumber&quot; : 112233445566, &quot;pensionAmount&quot;: 23955.0, &quot;serviceCharge&quot;:
+	 * 500 }
+	 */
+
+	@PostMapping(&quot;/ProcessPension&quot;)
+	public ProcessPensionResponse getcode(@RequestHeader(&quot;Authorization&quot;) String header,
+			@Valid @RequestBody ProcessInput processInput)
+			throws AuthorizationException, IOException, PensionerNotFoundException {
+<span class="nc" id="L69">		Log.info(&quot;start processPension&quot;);</span>
+<span class="nc" id="L70">		return processPensionServiceImpl.getcode(header, processInput);</span>
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
